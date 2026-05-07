@@ -18,7 +18,7 @@ export const Skills = () => {
             viewport={{ once: true }}
             className="inline-block px-4 py-1.5 rounded-full border border-gray-200 dark:border-white/10 bg-white/50 dark:bg-white/5 text-xs font-bold uppercase tracking-widest text-gray-500 dark:text-gray-400 font-display shadow-sm"
           >
-            02. Technical Capabilities
+            03. Technical Capabilities
           </motion.span>
           <AnimatedText 
             text="Engineered for Scalability" 

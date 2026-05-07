@@ -28,7 +28,7 @@ export const Experience = () => {
             viewport={{ once: true }}
             className="inline-block px-4 py-1.5 rounded-full border border-indigo-500/20 bg-indigo-500/5 text-xs font-bold uppercase tracking-widest text-indigo-500 font-display shadow-sm shadow-indigo-500/10"
           >
-            03. Career Experience
+            04. Career Experience
           </motion.span>
           <AnimatedText 
             text="Chronicle of Mobile Architectural Excellence" 

@@ -37,7 +37,7 @@ export const Contact = () => {
                 className="inline-flex items-center space-x-2 px-4 py-1.5 rounded-full border border-indigo-500/20 bg-indigo-500/5 text-xs font-bold uppercase tracking-widest text-indigo-500 font-display shadow-sm"
               >
                 <span className="w-2 h-2 rounded-full bg-indigo-500 animate-pulse" />
-                <span>05. Communication Node</span>
+                <span>06. Communication Node</span>
               </motion.span>
               <AnimatedText 
                 text="Let's build something extraordinary together." 

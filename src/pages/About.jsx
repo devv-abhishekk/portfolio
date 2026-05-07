@@ -16,7 +16,7 @@ const AnimatedCounter = ({ value, duration = 2, delay = 0 }) => {
     if (isInView) {
       setTimeout(() => {
         // Extract numeric part from value (e.g. "20+" -> 20, "100%" -> 100)
-        const numeric = parseInt(value.replace(/[^0-9]/g, ''));
+        const numeric = parseInt(String(value || '').replace(/[^0-9]/g, ''));
         if (!isNaN(numeric)) {
           motionValue.set(numeric);
         }
@@ -25,7 +25,7 @@ const AnimatedCounter = ({ value, duration = 2, delay = 0 }) => {
   }, [isInView, motionValue, value, delay]);
 
   // Suffix like '+', '%' etc.
-  const suffix = value.replace(/[0-9]/g, '');
+  const suffix = String(value || '').replace(/[0-9]/g, '');
 
   return (
     <span ref={ref} className="flex items-baseline">

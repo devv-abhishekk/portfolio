@@ -1,0 +1,216 @@
+@import "tailwindcss";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+
+@theme {
+  --color-dark-bg: #09090b;
+  --color-dark-card: #121214;
+  --color-light-bg: #f8fafc;
+  --color-light-card: #ffffff;
+  --color-accent-violet: #7c3aed;
+  --color-accent-indigo: #4f46e5;
+  --color-accent-cyan: #06b6d4;
+  
+  --font-sans: 'Inter', sans-serif;
+  --font-display: 'Outfit', sans-serif;
+  
+  --animate-pulse-slow: pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  --animate-float: float 6s ease-in-out infinite;
+  --animate-spin-slow: spin 12s linear infinite;
+
+  @keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+  }
+}
+
+/* Custom Base Styles */
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    font-family: 'Inter', sans-serif;
+  }
+  
+  body {
+    transition-property: color, background-color;
+    transition-duration: 300ms;
+    overflow-x: hidden;
+  }
+  
+  .dark body {
+    background-color: #09090b;
+    color: #f3f4f6;
+  }
+  
+  html:not(.dark) body {
+    background-color: #f8fafc;
+    color: #1f2937;
+  }
+
+  /* Custom Premium Scrollbar */
+  ::-webkit-scrollbar {
+    width: 8px;
+  }
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  ::-webkit-scrollbar-thumb {
+    border-radius: 9999px;
+    background-color: rgba(99, 102, 241, 0.3);
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background-color: rgba(99, 102, 241, 0.5);
+  }
+}
+
+/* Luxury Apple-style Glassmorphism Cards with Inset Beveling and Neon Follow Lights */
+.glass-card {
+  position: relative;
+  overflow: hidden;
+  backdrop-filter: blur(24px); /* Doubled Frosting */
+  -webkit-backdrop-filter: blur(24px);
+  transition-property: border-color, box-shadow, transform;
+  transition-duration: 500ms;
+  border-width: 1px;
+}
+
+/* Boosted Neon Follower Overlay */
+.glass-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    320px circle at var(--mouse-x, 0px) var(--mouse-y, 0px),
+    rgba(99, 102, 241, 0.18), /* Boosted from 0.12 */
+    transparent 80%
+  );
+  opacity: 0;
+  transition: opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.glass-card:hover::before {
+  opacity: 1;
+}
+
+.dark .glass-card {
+  background: rgba(10, 10, 12, 0.7); /* Deepened Obsidian Contrast */
+  border-color: rgba(255, 255, 255, 0.08);
+  /* Cupertino Style Inset Gloss Bevel Highlight */
+  box-shadow: 
+    0 16px 40px -10px rgba(0, 0, 0, 0.55), 
+    inset 0 1px 0 0 rgba(255, 255, 255, 0.1);
+}
+
+html:not(.dark) .glass-card {
+  background: rgba(255, 255, 255, 0.75); /* Frosted Milky Glass */
+  border-color: rgba(0, 0, 0, 0.08);
+  /* Soft Bevel Shadow */
+  box-shadow: 
+    0 16px 32px -10px rgba(31, 38, 135, 0.08), 
+    inset 0 1px 0 0 rgba(255, 255, 255, 0.65);
+}
+
+/* Luxury Glass Header */
+.glass-header {
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  transition-property: all;
+  transition-duration: 300ms;
+  border-bottom-width: 1px;
+}
+
+.dark .glass-header {
+  background: rgba(9, 9, 11, 0.85); /* Slightly darker obsidian blend */
+  border-color: rgba(255, 255, 255, 0.06);
+}
+
+html:not(.dark) .glass-header {
+  background: rgba(248, 250, 252, 0.9);
+  border-color: rgba(0, 0, 0, 0.05);
+}
+
+/* Gradient Text Utilities */
+.text-gradient {
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+  background-image: linear-gradient(to right, #7c3aed, #4f46e5, #06b6d4);
+}
+
+.text-gradient-cyan {
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+  background-image: linear-gradient(to right, #3b82f6, #14b8a6, #22d3ee);
+}
+
+/* Background Glowing Orbs Grid */
+.glow-bg-grid {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.glow-orb {
+  position: absolute;
+  border-radius: 9999px;
+  filter: blur(140px);
+  opacity: 0.18;
+  mix-blend-mode: screen;
+}
+
+.dark .glow-orb {
+  opacity: 0.22;
+}
+
+.orb-1 {
+  width: 500px;
+  height: 500px;
+  background: radial-gradient(circle, #7c3aed 0%, transparent 80%);
+  top: -10%;
+  right: -5%;
+  animation: float-slow 15s ease-in-out infinite alternate;
+}
+
+.orb-2 {
+  width: 600px;
+  height: 600px;
+  background: radial-gradient(circle, #4f46e5 0%, transparent 80%);
+  bottom: -15%;
+  left: -10%;
+  animation: float-slow 20s ease-in-out infinite alternate-reverse;
+}
+
+.orb-3 {
+  width: 400px;
+  height: 400px;
+  background: radial-gradient(circle, #06b6d4 0%, transparent 80%);
+  top: 40%;
+  left: 30%;
+  animation: float-slow 25s ease-in-out infinite alternate;
+}
+
+@keyframes float-slow {
+  0% { transform: translate(0, 0) scale(1); }
+  50% { transform: translate(30px, -20px) scale(1.1); }
+  100% { transform: translate(-20px, 30px) scale(0.9); }
+}
+
+/* Blinking Typed Cursor */
+.typed-cursor {
+  opacity: 1;
+  animation: blink 0.7s infinite;
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}

@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import { useRef } from 'react';
 import { motion, useMotionValue, useTransform, useSpring } from 'framer-motion';
 
 export const GlassCard = ({ children, className = '', delay = 0, hoverEffect = true }) => {

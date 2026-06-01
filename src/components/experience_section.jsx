@@ -1,11 +1,10 @@
-import React from 'react';
-import { EXPERIENCES } from '../constants/data';
-import { GlassCard } from '../components/GlassCard';
-import { AnimatedText } from '../components/AnimatedText';
+import { EXPERIENCES } from '../constants/portfolio_constants';
+import { GlassCard } from './glass_card';
+import { AnimatedText } from './animated_text';
 import { motion, useScroll, useSpring } from 'framer-motion';
 import { FiArrowRight } from 'react-icons/fi';
 
-export const Experience = () => {
+export const ExperienceSection = () => {
   const { scrollYProgress } = useScroll();
   const scaleY = useSpring(scrollYProgress, {
     stiffness: 100,
@@ -139,4 +138,4 @@ export const Experience = () => {
   );
 };
 
-export default Experience;
+export default ExperienceSection;

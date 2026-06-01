@@ -8,6 +8,13 @@ export const DEVELOPER_PROFILE = {
   location: "India",
   github: "https://github.com/devv-abhishekk",
   linkedin: "https://linkedin.com/in/abhishek-kumar-flutter",
+  resumeUrl: "https://drive.google.com/file/d/1p1wV9y_D07N_9AKRIrvD9cPnXPvkog5v/view?usp=sharing",
+  roles: [
+    "Senior Flutter Developer",
+    "Mobile App Architect",
+    "BLoC / Cubit Expert",
+    "Native Android Developer"
+  ],
   metrics: [
     { label: "Years Experience", value: "4+" },
     { label: "Apps Shipped", value: "15+" },

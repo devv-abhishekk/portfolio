@@ -1,43 +1,16 @@
-import React, { useState, useEffect } from 'react';
-import { DEVELOPER_PROFILE } from '../constants/data';
-import { motion } from 'framer-motion';
+import { useState } from 'react';
+import { DEVELOPER_PROFILE } from '../constants/portfolio_constants';
+import { motion, AnimatePresence } from 'framer-motion';
 import { FiGithub, FiLinkedin, FiMail, FiArrowRight, FiDownload } from 'react-icons/fi';
-import { GlassCard } from '../components/GlassCard';
+import { GlassCard } from './glass_card';
+import { ResumeModal } from './resume_modal';
+import { useTypingEffect } from '../hooks/use_typing_effect';
+import { useCopyToClipboard } from '../hooks/use_copy_to_clipboard';
 
-const TYPED_WORDS = [
-  "Senior Flutter Developer",
-  "Mobile App Architect",
-  "BLoC / Cubit Expert",
-  "Native Android Developer"
-];
-
-export const Hero = () => {
-  const [wordIdx, setWordIdx] = useState(0);
-  const [subText, setSubText] = useState("");
-  const [isDeleting, setIsDeleting] = useState(false);
-
-  useEffect(() => {
-    let timer;
-    const fullWord = TYPED_WORDS[wordIdx];
-
-    const typeSpeed = isDeleting ? 30 : 60;
-    const nextChar = isDeleting 
-      ? fullWord.slice(0, subText.length - 1)
-      : fullWord.slice(0, subText.length + 1);
-
-    timer = setTimeout(() => {
-      setSubText(nextChar);
-    }, typeSpeed);
-
-    if (!isDeleting && subText === fullWord) {
-      timer = setTimeout(() => setIsDeleting(true), 2500);
-    } else if (isDeleting && subText === "") {
-      setIsDeleting(false);
-      setWordIdx((prev) => (prev + 1) % TYPED_WORDS.length);
-    }
-
-    return () => clearTimeout(timer);
-  }, [subText, isDeleting, wordIdx]);
+export const HeroSection = () => {
+  const [isResumeOpen, setIsResumeOpen] = useState(false);
+  const [copiedField, copy] = useCopyToClipboard(2000);
+  const subText = useTypingEffect(DEVELOPER_PROFILE.roles || []);
 
   const scrollSmoothTo = (id) => {
     const el = document.querySelector(id);
@@ -119,25 +92,24 @@ export const Hero = () => {
           >
             <button
               onClick={() => scrollSmoothTo('#projects')}
-              className="flex items-center justify-center space-x-2 rounded-2xl bg-indigo-600 hover:bg-indigo-500 text-white font-bold text-sm px-8 py-4 transition-all duration-300 shadow-[0_10px_30px_-10px_rgba(79,70,229,0.5)] hover:shadow-[0_15px_40px_-10px_rgba(79,70,229,0.7)] hover:-translate-y-1 group focus:outline-none"
+              className="flex items-center justify-center space-x-2 rounded-2xl bg-indigo-600 hover:bg-indigo-500 text-white font-bold text-sm px-8 py-4 transition-all duration-300 shadow-[0_10px_30px_-10px_rgba(79,70,229,0.5)] hover:shadow-[0_15px_40px_-10px_rgba(79,70,229,0.7)] hover:-translate-y-1 group focus:outline-none cursor-pointer"
             >
               <span>Explore Projects</span>
               <FiArrowRight className="text-lg transition-transform group-hover:translate-x-1.5" />
             </button>
             <button
               onClick={() => scrollSmoothTo('#contact')}
-              className="flex items-center justify-center space-x-2 rounded-2xl border border-indigo-500/20 hover:border-indigo-500/40 bg-white/5 hover:bg-indigo-500/10 text-gray-800 dark:text-white font-bold text-sm px-8 py-4 transition-all duration-300 hover:-translate-y-1 shadow-xl backdrop-blur-sm"
+              className="flex items-center justify-center space-x-2 rounded-2xl border border-indigo-500/20 hover:border-indigo-500/40 bg-white/5 hover:bg-indigo-500/10 text-gray-800 dark:text-white font-bold text-sm px-8 py-4 transition-all duration-300 hover:-translate-y-1 shadow-xl backdrop-blur-sm cursor-pointer"
             >
               <span>Contact Me</span>
             </button>
-            <a
-              href="#"
-              onClick={(e) => { e.preventDefault(); alert("Resume PDF downloaded! (Simulated)") }}
-              className="flex items-center justify-center space-x-2 rounded-2xl border border-cyan-500/20 hover:border-cyan-500/40 bg-cyan-500/5 hover:bg-cyan-500/10 text-gray-800 dark:text-white font-bold text-sm px-6 py-4 transition-all duration-300 hover:-translate-y-1 shadow-xl backdrop-blur-sm"
+            <button
+              onClick={() => setIsResumeOpen(true)}
+              className="flex items-center justify-center space-x-2 rounded-2xl border border-cyan-500/20 hover:border-cyan-500/40 bg-cyan-500/5 hover:bg-cyan-500/10 text-gray-800 dark:text-white font-bold text-sm px-6 py-4 transition-all duration-300 hover:-translate-y-1 shadow-xl backdrop-blur-sm cursor-pointer focus:outline-none"
             >
               <FiDownload className="text-lg mr-1 text-cyan-500" />
               <span>Resume</span>
-            </a>
+            </button>
           </motion.div>
 
           {/* Social Row */}
@@ -165,13 +137,28 @@ export const Hero = () => {
             >
               <FiLinkedin className="text-2xl" />
             </a>
-            <a
-              href={`mailto:${DEVELOPER_PROFILE.email}`}
-              className="hover:text-violet-600 dark:hover:text-violet-400 hover:-translate-y-1 transition-all duration-300 p-2"
-              aria-label="Email"
-            >
-              <FiMail className="text-2xl" />
-            </a>
+            <div className="relative">
+              <AnimatePresence>
+                {copiedField === 'email' && (
+                  <motion.div
+                    initial={{ opacity: 0, y: 10, scale: 0.8 }}
+                    animate={{ opacity: 1, y: -40, scale: 1 }}
+                    exit={{ opacity: 0, y: 10, scale: 0.8 }}
+                    className="absolute left-1/2 -translate-x-1/2 bg-indigo-600 text-white text-[10px] font-bold px-2.5 py-1 rounded-lg shadow-lg whitespace-nowrap z-50 pointer-events-none"
+                  >
+                    Email Copied!
+                  </motion.div>
+                )}
+              </AnimatePresence>
+              <a
+                href={`mailto:${DEVELOPER_PROFILE.email}`}
+                onClick={() => copy(DEVELOPER_PROFILE.email, 'email')}
+                className="hover:text-violet-600 dark:hover:text-violet-400 hover:-translate-y-1 transition-all duration-300 p-2 block"
+                aria-label="Email"
+              >
+                <FiMail className="text-2xl" />
+              </a>
+            </div>
           </motion.div>
         </div>
 
@@ -196,7 +183,7 @@ export const Hero = () => {
                 <span className="text-violet-600 dark:text-purple-400">import</span> <span className="text-cyan-600 dark:text-cyan-400">'package:flutter/material.dart'</span>;<br/><br/>
                 <span className="text-indigo-600 dark:text-blue-400">class</span> <span className="text-amber-600 dark:text-yellow-300">AbhishekKumar</span> <span className="text-indigo-600 dark:text-blue-400">extends</span> <span className="text-amber-600 dark:text-yellow-300">Developer</span> &#123;<br/>
                 &nbsp;&nbsp;<span className="text-gray-400 dark:text-gray-500 italic">// Core Configuration</span><br/>
-                &nbsp;&nbsp;<span className="text-indigo-600 dark:text-blue-400">final</span> String role = <span className="text-cyan-600 dark:text-cyan-400">"{TYPED_WORDS[0]}"</span>;<br/>
+                &nbsp;&nbsp;<span className="text-indigo-600 dark:text-blue-400">final</span> String role = <span className="text-cyan-600 dark:text-cyan-400">"{DEVELOPER_PROFILE.roles[0]}"</span>;<br/>
                 &nbsp;&nbsp;<span className="text-indigo-600 dark:text-blue-400">final</span> String exp = <span className="text-cyan-600 dark:text-cyan-400">"4+ Years"</span>;<br/>
                 &nbsp;&nbsp;<span className="text-indigo-600 dark:text-blue-400">final</span> List tech = [<span className="text-cyan-600 dark:text-cyan-400">"Flutter"</span>, <span className="text-cyan-600 dark:text-cyan-400">"BLoC"</span>, <span className="text-cyan-600 dark:text-cyan-400">"Dart"</span>];<br/><br/>
                 &nbsp;&nbsp;<span className="text-amber-600 dark:text-yellow-300">Widget</span> <span className="text-emerald-600 dark:text-green-400">buildMasterpiece</span>() &#123;<br/>
@@ -228,8 +215,14 @@ export const Hero = () => {
           </motion.div>
         </motion.div>
       </div>
+
+      <AnimatePresence>
+        {isResumeOpen && (
+          <ResumeModal isOpen={isResumeOpen} onClose={() => setIsResumeOpen(false)} />
+        )}
+      </AnimatePresence>
     </section>
   );
 };
 
-export default Hero;
+export default HeroSection;

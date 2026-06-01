@@ -1,27 +1,9 @@
-import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { FiArrowUp } from 'react-icons/fi';
+import { useScrollProgress } from '../hooks/use_scroll_progress';
 
 export const ScrollToTop = () => {
-  const [isVisible, setIsVisible] = useState(false);
-  const [progress, setProgress] = useState(0);
-
-  useEffect(() => {
-    const handleScroll = () => {
-      const scrollY = window.scrollY;
-      const totalHeight = document.documentElement.scrollHeight - window.innerHeight;
-      
-      // Toggle visibility beyond 400px
-      setIsVisible(scrollY > 400);
-
-      if (totalHeight > 0) {
-        setProgress((scrollY / totalHeight) * 100);
-      }
-    };
-
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+  const { isThresholdExceeded: isVisible, scrollProgress: progress } = useScrollProgress(400);
 
   const scrollToTop = () => {
     window.scrollTo({
@@ -43,7 +25,7 @@ export const ScrollToTop = () => {
           whileHover={{ scale: 1.1 }}
           whileTap={{ scale: 0.9 }}
           onClick={scrollToTop}
-          className="fixed bottom-8 right-8 z-[90] flex h-12 w-12 items-center justify-center rounded-full shadow-2xl focus:outline-none backdrop-blur-md border border-indigo-500/20 bg-slate-900/60 text-indigo-400 dark:border-indigo-500/20 dark:bg-slate-900/60 dark:text-indigo-400 light:border-slate-200 light:bg-white/70 light:text-indigo-600"
+          className="fixed bottom-8 right-8 z-[90] flex h-12 w-12 items-center justify-center rounded-full shadow-2xl focus:outline-none backdrop-blur-md border border-slate-200 bg-white/70 text-indigo-600 dark:border-indigo-500/20 dark:bg-slate-900/60 dark:text-indigo-400"
           aria-label="Scroll to top"
         >
           {/* Radial Progress Ring */}

@@ -1,9 +1,8 @@
-import React from 'react';
-import { SKILLS } from '../constants/data';
-import { AnimatedText } from '../components/AnimatedText';
+import { SKILLS } from '../constants/portfolio_constants';
+import { AnimatedText } from './animated_text';
 import { motion } from 'framer-motion';
 
-export const Skills = () => {
+export const SkillsSection = () => {
   return (
     <section id="skills" className="relative py-32 overflow-hidden bg-slate-50 dark:bg-[#050505]">
       {/* Ultra-Clean Ambient Background */}
@@ -76,4 +75,4 @@ export const Skills = () => {
   );
 };
 
-export default Skills;
+export default SkillsSection;

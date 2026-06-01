@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { useTheme } from '../hooks/useTheme';
+import { useState, useEffect } from 'react';
+import { useTheme } from '../hooks/use_theme';
 import { FiSun, FiMoon, FiMenu, FiX } from 'react-icons/fi';
 import { motion, AnimatePresence, useScroll, useSpring } from 'framer-motion';
 import confetti from 'canvas-confetti';
@@ -12,7 +12,7 @@ const NAV_ITEMS = [
   { label: 'Contact', href: '#contact' }
 ];
 
-export const Navbar = () => {
+export const NavigationBar = () => {
   const { theme, toggleTheme } = useTheme();
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -111,7 +111,7 @@ export const Navbar = () => {
             {/* Theme Toggle Button */}
             <button
               onClick={toggleTheme}
-              className="p-2.5 rounded-xl border border-indigo-500/10 hover:border-indigo-500/30 hover:bg-indigo-500/5 text-gray-400 hover:text-indigo-400 dark:text-gray-400 dark:hover:text-indigo-400 light:text-slate-500 light:hover:text-indigo-600 transition-all duration-300 focus:outline-none"
+              className="p-2.5 rounded-xl border border-slate-200 hover:border-indigo-500/30 hover:bg-indigo-500/5 text-slate-500 hover:text-indigo-600 dark:border-indigo-500/10 dark:hover:border-indigo-500/30 dark:hover:bg-indigo-500/5 dark:text-gray-400 dark:hover:text-indigo-400 transition-all duration-300 focus:outline-none"
               aria-label="Toggle Theme"
             >
               {theme === 'dark' ? <FiSun className="text-lg" /> : <FiMoon className="text-lg" />}
@@ -131,14 +131,14 @@ export const Navbar = () => {
           <div className="flex md:hidden items-center space-x-4">
             <button
               onClick={toggleTheme}
-              className="p-2 rounded-xl text-gray-400 hover:text-white dark:text-gray-400 dark:hover:text-white light:text-slate-500 light:hover:text-indigo-600"
+              className="p-2 rounded-xl text-slate-500 hover:text-indigo-600 dark:text-gray-400 dark:hover:text-white"
               aria-label="Toggle Theme"
             >
               {theme === 'dark' ? <FiSun className="text-lg" /> : <FiMoon className="text-lg" />}
             </button>
             <button
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              className="p-2 rounded-xl text-gray-400 hover:text-white dark:text-gray-400 dark:hover:text-white light:text-slate-500 light:hover:text-indigo-600"
+              className="p-2 rounded-xl text-slate-500 hover:text-indigo-600 dark:text-gray-400 dark:hover:text-white"
               aria-label="Toggle Mobile Menu"
             >
               {isMobileMenuOpen ? <FiX className="text-xl" /> : <FiMenu className="text-xl" />}
@@ -155,14 +155,14 @@ export const Navbar = () => {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
             transition={{ duration: 0.3 }}
-            className="fixed top-[74px] left-0 right-0 z-40 md:hidden p-6 border-b border-white/5 dark:border-white/5 bg-slate-950/90 dark:bg-slate-950/90 light:bg-slate-50/95 light:border-slate-200/50 backdrop-blur-xl shadow-2xl flex flex-col space-y-4"
+            className="fixed top-[74px] left-0 right-0 z-40 md:hidden p-6 border-b border-slate-200 dark:border-white/5 bg-slate-50/95 dark:bg-slate-950/90 backdrop-blur-xl shadow-2xl flex flex-col space-y-4"
           >
             {NAV_ITEMS.map((item) => (
               <a
                 key={item.label}
                 href={item.href}
                 onClick={(e) => handleNavClick(e, item.href)}
-                className="text-base font-medium text-gray-400 dark:text-gray-400 dark:hover:text-white hover:text-indigo-600 transition-colors py-2 border-b border-white/[0.03] dark:border-white/[0.03] light:border-slate-200"
+                className="text-base font-medium text-slate-500 hover:text-indigo-600 dark:text-gray-400 dark:hover:text-white transition-colors py-2 border-b border-slate-200 dark:border-white/[0.03]"
               >
                 {item.label}
               </a>
@@ -180,4 +180,4 @@ export const Navbar = () => {
   );
 };
 
-export default Navbar;
+export default NavigationBar;

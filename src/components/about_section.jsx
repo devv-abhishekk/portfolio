@@ -1,7 +1,7 @@
-import React, { useEffect, useRef } from 'react';
-import { DEVELOPER_PROFILE, EDUCATION } from '../constants/data';
-import { GlassCard } from '../components/GlassCard';
-import { AnimatedText } from '../components/AnimatedText';
+import { useEffect, useRef } from 'react';
+import { DEVELOPER_PROFILE, EDUCATION } from '../constants/portfolio_constants';
+import { GlassCard } from './glass_card';
+import { AnimatedText } from './animated_text';
 import { motion, useInView, useMotionValue, useSpring, useTransform, useScroll } from 'framer-motion';
 
 // Animated Counter Component
@@ -35,7 +35,7 @@ const AnimatedCounter = ({ value, duration = 2, delay = 0 }) => {
   );
 };
 
-export const About = () => {
+export const AboutSection = () => {
   const { scrollYProgress } = useScroll();
   const scaleY = useSpring(scrollYProgress, { stiffness: 100, damping: 30, restDelta: 0.001 });
 
@@ -212,4 +212,4 @@ export const About = () => {
   );
 };
 
-export default About;
+export default AboutSection;

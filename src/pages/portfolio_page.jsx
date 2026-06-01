@@ -1,17 +1,17 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { AnimatePresence } from 'framer-motion';
-import { CustomLoader } from './components/CustomLoader';
-import { ScrollToTop } from './components/ScrollToTop';
-import { Navbar } from './layouts/Navbar';
-import { Footer } from './layouts/Footer';
-import { Hero } from './pages/Hero';
-import { About } from './pages/About';
-import { Skills } from './pages/Skills';
-import { Experience } from './pages/Experience';
-import { Projects } from './pages/Projects';
-import { Contact } from './pages/Contact';
+import { CustomLoader } from '../components/custom_loader';
+import { ScrollToTop } from '../components/scroll_to_top';
+import { NavigationBar } from '../components/navigation_bar';
+import { Footer } from '../components/footer';
+import { HeroSection } from '../components/hero_section';
+import { AboutSection } from '../components/about_section';
+import { SkillsSection } from '../components/skills_section';
+import { ExperienceSection } from '../components/experience_section';
+import { ProjectsSection } from '../components/projects_section';
+import { ContactSection } from '../components/contact_section';
 
-function App() {
+export const PortfolioPage = () => {
   const [isLoading, setIsLoading] = useState(true);
 
   return (
@@ -32,16 +32,16 @@ function App() {
           </div>
 
           {/* Navigation bar */}
-          <Navbar />
+          <NavigationBar />
 
           {/* Core Sections Grid */}
           <main className="relative z-10">
-            <Hero />
-            <About />
-            <Skills />
-            <Experience />
-            <Projects />
-            <Contact />
+            <HeroSection />
+            <AboutSection />
+            <SkillsSection />
+            <ExperienceSection />
+            <ProjectsSection />
+            <ContactSection />
           </main>
 
           {/* Global Footer */}
@@ -53,6 +53,6 @@ function App() {
       )}
     </>
   );
-}
+};
 
-export default App;
+export default PortfolioPage;
